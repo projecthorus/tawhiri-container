@@ -24,11 +24,14 @@ RUN unzip /root/tawhiri-master.zip -d /root && \
 # -------------------------
 FROM debian:buster-slim
 
+EXPOSE 8000/tcp
+
 RUN apt-get update && \
   apt-get upgrade -y && \
   apt-get install -y --no-install-recommends \
     imagemagick \
-    python3 && \
+    python3 \
+    tini && \
   rm -rf /var/lib/apt/lists/*
 
 COPY --from=build /root/.local /root/.local
@@ -36,5 +39,11 @@ COPY --from=build /root/tawhiri-master /root/tawhiri-master
 
 RUN rm /etc/ImageMagick-6/policy.xml && \
   mkdir -p /run/tawhiri
+
+WORKDIR /root
+
+ENV PATH=/root/.local/bin:$PATH
+
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 CMD /root/.local/bin/gunicorn -b 0.0.0.0:8000 -w 12 tawhiri.api:app
