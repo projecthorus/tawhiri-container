@@ -7,7 +7,7 @@ _tawhiri-container_ is a containised version of [_tawhiri_](https://github.com/c
 - The latest version of this container is available from `ghcr.io/projecthorus/tawhiri-container:latest`.
 - Downloaded data sets must be placed in `/srv/tawhiri-datasets`. These can be downloaded using [_tawhiri-downloader-container_](https://github.com/projecthorus/tawhiri-downloader-container), and it is recommend that `/srv` is shared between these containers using a method such as a bind mount or volume.
 - A timezone must be passed to the container, either by setting the `TZ` environment variable, or by bind mounting `/etc/localtime` in to the container from the host system.
-- Elevation data is stored to a file named `/srv/ruaumoko-dataset`, and must be populated using `ruaumoko-download` (including in the container).
+- Elevation data must be placed in a file named `/srv/ruaumoko-dataset`, and can be downloaded using `ruaumoko-download` (including in the container).
 
 ## Examples
 
