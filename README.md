@@ -20,11 +20,11 @@ docker run --rm -i -t -e TZ=UTC -v /opt/tawhiri:/srv ghcr.io/projecthorus/tawhir
 To run the API server with the default configuration of 12 threads, listening on port `8000`:
 
 ```sh
-docker run --rm -i -t -e TZ=UTC -v /opt/tawhiri:/srv ghcr.io/projecthorus/tawhiri-container:latest
+docker run --rm -i -t -e TZ=UTC -v /opt/tawhiri:/srv -p 8000:8000 ghcr.io/projecthorus/tawhiri-container:latest
 ```
 
 To run the API server, with a custom number of threads, listening on a different port:
 
 ```sh
-docker run --rm -i -t -e TZ=UTC -v /opt/tawhiri:/srv ghcr.io/projecthorus/tawhiri-container:latest gunicorn -b 0.0.0.0:8000 -w 12 tawhiri.api:app
+docker run --rm -i -t -e TZ=UTC -v /opt/tawhiri:/srv -p 8005:8005 ghcr.io/projecthorus/tawhiri-container:latest gunicorn -b 0.0.0.0:8005 -w 6 tawhiri.api:app
 ```
